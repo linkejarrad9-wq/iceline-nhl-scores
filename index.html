@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#081525" />
+  <meta name="description" content="Worldwide NHL scores, schedules, standings and team search." />
+  <title>IceLine — NHL Scores Worldwide</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="IceLine home">
+      <span class="brand-mark">IL</span><span>ICELINE</span><span class="brand-tag">NHL WORLDWIDE</span>
+    </a>
+    <div class="top-actions">
+      <span class="timezone" id="timezoneLabel">Your local time</span>
+      <button id="refreshBtn" class="icon-button" title="Refresh scores" aria-label="Refresh scores">↻</button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> THE GAME, WHEREVER YOU ARE</div>
+        <h1>Every game.<br><span>Every time zone.</span></h1>
+        <p>Live NHL scores, upcoming fixtures and league standings in one place.</p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">LOCAL TIME</div>
+        <div class="hero-clock" id="localClock">--:--</div>
+        <div class="hero-date" id="localDate">Loading your date…</div>
+        <div class="timezone-note">Game times are shown in your device’s time zone.</div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Main sections">
+      <button class="tab active" data-view="scores">Scores & Schedule</button>
+      <button class="tab" data-view="standings">Standings</button>
+      <button class="tab" data-view="teams">Teams</button>
+      <a class="tab external-tab" href="https://www.nhl.com/" target="_blank" rel="noreferrer">Official NHL ↗</a>
+    </nav>
+
+    <section id="scoresView" class="view">
+      <div class="section-heading">
+        <div><div class="eyebrow muted">THE SCOREBOARD</div><h2>Scores & schedule</h2></div>
+        <div class="date-controls">
+          <button id="prevDay" class="small-button" aria-label="Previous day">‹</button>
+          <input type="date" id="datePicker" aria-label="Choose date" />
+          <button id="nextDay" class="small-button" aria-label="Next day">›</button>
+          <button id="todayBtn" class="small-button today-button">Today</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <label class="search-wrap"><span>⌕</span><input id="gameSearch" type="search" placeholder="Search a team…" autocomplete="off" /></label>
+        <select id="gameFilter" aria-label="Filter games">
+          <option value="all">All games</option><option value="live">Live now</option><option value="upcoming">Upcoming</option><option value="final">Final</option>
+        </select>
+      </div>
+      <div id="scoreStatus" class="status-line" role="status">Loading NHL games…</div>
+      <div id="gamesGrid" class="games-grid"></div>
+      <div id="emptyGames" class="empty-state hidden">No games match this date or search. Try another day.</div>
+    </section>
+
+    <section id="standingsView" class="view hidden">
+      <div class="section-heading">
+        <div><div class="eyebrow muted">THE RACE TO THE PLAYOFFS</div><h2>League standings</h2></div>
+        <button id="refreshStandings" class="small-button">Refresh</button>
+      </div>
+      <div class="filter-row">
+        <label class="search-wrap"><span>⌕</span><input id="standingSearch" type="search" placeholder="Search team or division…" autocomplete="off" /></label>
+        <select id="conferenceFilter" aria-label="Filter standings">
+          <option value="all">All teams</option><option value="Eastern">Eastern Conference</option><option value="Western">Western Conference</option>
+        </select>
+      </div>
+      <div id="standingsStatus" class="status-line">Loading standings…</div>
+      <div class="table-wrap">
+        <table class="standings-table">
+          <thead><tr><th>#</th><th>Team</th><th>GP</th><th>W</th><th>L</th><th>OTL</th><th>PTS</th><th>ROW</th><th>GF</th><th>GA</th><th>DIFF</th></tr></thead>
+          <tbody id="standingsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="teamsView" class="view hidden">
+      <div class="section-heading">
+        <div><div class="eyebrow muted">PICK YOUR SIDE</div><h2>Find a team</h2></div>
+      </div>
+      <label class="search-wrap team-search"><span>⌕</span><input id="teamSearch" type="search" placeholder="Search all 32 NHL teams…" autocomplete="off" /></label>
+      <div id="teamsGrid" class="teams-grid"></div>
+    </section>
+
+    <section class="footer-note">
+      <div class="footer-symbol">✦</div>
+      <div><strong>Built for hockey fans everywhere.</strong><p>Dates and times adapt to your device. Scores and stats are fetched from publicly accessible NHL data endpoints.</p></div>
+      <button id="installBtn" class="install-button hidden">Install app</button>
+    </section>
+  </main>
+
+  <footer><span>ICELINE © <span id="year"></span></span><span>Independent fan project · Not affiliated with the NHL</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
